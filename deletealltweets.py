@@ -1,4 +1,5 @@
 import tweepy
+import os
 import ConfigParser
 
 BOT_NAME = '@pushpopbot'
@@ -22,8 +23,9 @@ user_timeline = api.user_timeline()
 for status in user_timeline:
     api.destroy_status(status.id)
 
-# reset our local thingy
+# reset our local stuff
 housekeeping.set('runtimes', 'last_processed_tweet', '')
 hk_file = open('housekeeping.ini', 'w')
 housekeeping.write(hk_file)
 hk_file.close()
+os.remove('pushpopbot.log')
